@@ -6,6 +6,9 @@ import numpy as np
 import cairosvg
 import io
 
+
+# 文本匹配多张图片的代码示例
+
 def text_to_images_search(text_query, image_paths, model_name='ViT-B-32', pretrained='laion2b_s34b_b79k'):
     """
     用文本查询匹配多张图片
