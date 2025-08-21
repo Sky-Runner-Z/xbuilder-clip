@@ -5,18 +5,18 @@ from logging.handlers import RotatingFileHandler
 
 
 def create_app(config_name='default'):
-    """î(ÂÇ˝p"""
+    """Application factory function"""
     app = Flask(__name__)
     
-    # Mnî(
+    # Configure application
     from .config.config import config
     app.config.from_object(config[config_name])
     
-    # ˙≈ÅÑÓU
+    # Create necessary directories
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     os.makedirs(app.config['LOG_FOLDER'], exist_ok=True)
     
-    # MnÂ◊
+    # Configure logging
     if not app.debug and not app.testing:
         if not os.path.exists('logs'):
             os.mkdir('logs')
@@ -32,11 +32,11 @@ def create_app(config_name='default'):
         app.logger.setLevel(logging.INFO)
         app.logger.info('Image Search API startup')
     
-    # Ëå›˛
+    # Register blueprints
     from .api.routes import api_bp
     app.register_blueprint(api_bp)
     
-    # ˚†9Ô1
+    # Add root route
     @app.route('/')
     def index():
         return {
